@@ -99,6 +99,9 @@ uint8_t main(int argc, char **argv){
     char *buffer = malloc(stringLength);
     valread = read(sock, buffer, stringLength);
     printf("%s\n", buffer);
+
+    free(data);
+    free(buffer);
 }
 
 uint64_t pack_varint(uint32_t number){
