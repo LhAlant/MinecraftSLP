@@ -6,4 +6,4 @@ To make the program: make MinecraftSLP or gcc MinecraftSLP -o MinecraftSLP
 Usage : ./MinecraftSLP ip port
 Example : ./MinecraftSLP 127.0.0.1 25565
 
-Everything is based on this page on wiki.vg : https://wiki.vg/Server_List_Ping#Current_.281.7.2B.29
+Everything is based on this page on wiki.vg : https://wiki.vg/Server_List_Ping
