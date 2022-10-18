@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <time.h>
 
 uint64_t pack_varint(uint32_t number);
 uint64_t unpack_varint(int *sock, int *valread);
@@ -99,6 +100,9 @@ uint8_t main(int argc, char **argv){
     char *buffer = malloc(stringLength);
     valread = read(sock, buffer, stringLength);
     printf("%s\n", buffer);
+
+    // closing the connected socket
+    close(client_fd);
 
     free(data);
     free(buffer);
