@@ -33,7 +33,7 @@ uint8_t main(int argc, char **argv){
 
     uint32_t protocolVersionVarint = pack_varint(760);
     uint8_t packetID = 0;
-    uint32_t serverAddressLength = pack_varint(strlen(ip));
+    uint32_t serverAddressLength = strlen(ip);
     uint8_t nextState = pack_varint(1);
     uint32_t requestLength = bytes_used(packetID)
                             + bytes_used(protocolVersionVarint)
@@ -41,11 +41,12 @@ uint8_t main(int argc, char **argv){
                             + serverAddressLength
                             + 2 //Port uses 2 bytes 
                             + 1; //nextState is either 0 or 1
-    uint32_t totalRequestLength = pack_varint(requestLength + bytes_used(requestLength));
+    serverAddressLength = pack_varint(serverAddressLength); //The length will be sent as a varint
+    uint32_t totalRequestLength = requestLength + bytes_used(requestLength);
     uint8_t *data = malloc(totalRequestLength);
     uint32_t ptr = 0;
 
-    insert_bytes_in_data(requestLength, &data, &ptr);
+    insert_bytes_in_data(pack_varint(requestLength), &data, &ptr);
     insert_bytes_in_data(packetID, &data, &ptr);
     insert_bytes_in_data(protocolVersionVarint, &data, &ptr);
     insert_bytes_in_data(serverAddressLength, &data, &ptr);
